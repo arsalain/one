@@ -1,6 +1,6 @@
-import Dest from "../Model/Dest.js"
+const Dest = require("../Model/Dest.js");
 
-export const createDest = async (req, res, next) => {
+const createDest = async (req, res, next) => {
   try {
   const {
     name,
@@ -46,7 +46,7 @@ export const createDest = async (req, res, next) => {
   
   
   // Delete a destination by name
-  export const deleteDest= async (req,res,next)=>{
+const deleteDest= async (req,res,next)=>{
     try {
       const { id } = req.params;
       const deletedDest = await Dest.findByIdAndDelete(id);
@@ -58,7 +58,7 @@ export const createDest = async (req, res, next) => {
       res.status(500).json({ error: "Could not delete destination" });
     }
   }
-  export const getDestsall = async (req,res,next)=>{
+const getDestsall = async (req,res,next)=>{
     try {
       const dests = await Dest.find();
       // res.status(200).json(treks);
@@ -67,7 +67,7 @@ export const createDest = async (req, res, next) => {
       res.status(500).json({ success: false, error: err.message });
     }
   }
-  export const getDestMain = async (req, res, next) => {
+const getDestMain = async (req, res, next) => {
     try {
       let dests = await Dest.find(
         {},
@@ -86,7 +86,7 @@ export const createDest = async (req, res, next) => {
     }
   };
   // Update a destination by name
-  export const updateDestById = async (req, res, next) => {
+const updateDestById = async (req, res, next) => {
     // const { name } = req.params;
     const { id } = req.params;
     const DestData = {};
@@ -143,7 +143,7 @@ export const createDest = async (req, res, next) => {
   
   
   // Get a destination by name
-  export const getDestByName= async (req,res,next)=>{
+  const getDestByName= async (req,res,next)=>{
     try {
       // const name = req.params.name;
       const linkName = req.params.name;
@@ -160,7 +160,7 @@ export const createDest = async (req, res, next) => {
   // destinationController.js
 
 // Function to find destinations by main type: south India
-export const getDestinationsSouthIndia = async (req, res, next) => {
+const getDestinationsSouthIndia = async (req, res, next) => {
   try {
     const destinations = await Dest.find({ maintype: 'southindia' });
     console.log('Destinations:', destinations);
@@ -174,7 +174,7 @@ export const getDestinationsSouthIndia = async (req, res, next) => {
   }
 };
 // Function to find destinations by main type: north India
-export const getDestinationsNorthIndia = async (req, res, next) => {
+const getDestinationsNorthIndia = async (req, res, next) => {
   try {
     const destinations = await Dest.find({ maintype: 'northindia' });
     if (!destinations) {
@@ -188,7 +188,7 @@ export const getDestinationsNorthIndia = async (req, res, next) => {
 };
 
 // Function to find destinations by main type: international
-export const getDestinationsInternational = async (req, res, next) => {
+const getDestinationsInternational = async (req, res, next) => {
   try {
     const destinations = await Dest.find({ maintype: 'international' });
     if (!destinations) {
@@ -199,4 +199,16 @@ export const getDestinationsInternational = async (req, res, next) => {
     console.error(error);
     res.status(500).json({ message: 'Server Error' });
   }
+};
+
+module.exports = {
+  createDest,
+  deleteDest,
+  getDestsall,
+  getDestMain,
+  updateDestById,
+  getDestByName,
+  getDestinationsSouthIndia,
+  getDestinationsNorthIndia,
+  getDestinationsInternational
 };

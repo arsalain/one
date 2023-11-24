@@ -2,20 +2,16 @@ const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const TrekRoute = require("./Routes/Trek.js");
-// const UserRoute = require("./Routes/User.js");
-// const BookRoute = require("./Routes/Book.js");
-// const DestRoute = require("./Routes/Dest.js");
-// const MemberRoute = require("./Routes/Member.js");
-// const BlogRoute = require("./Routes/Blog.js");
-// const EnqRoute = require("./Routes/Enquiry.js");
+const UserRoute = require("./Routes/User.js");
+const BookRoute = require("./Routes/Book.js");
+const DestRoute = require("./Routes/Dest.js");
+const MemberRoute = require("./Routes/Member.js");
+const BlogRoute = require("./Routes/Blog.js");
+const EnqRoute = require("./Routes/Enquiry.js");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-// import { createRequire } from 'module';
 
-// const require = createRequire(import.meta.url);
-
-// delete require.cache[require.resolve('./Controllers/book.js')];
 
 const app = express();
 dotenv.config();
@@ -53,12 +49,12 @@ app.use("/uploads", (req, res, next) => {
 }, express.static('uploads'));
 
 app.use("/trek", TrekRoute);
-// app.use("/auth",UserRoute)
-// app.use("/book",BookRoute );
-// app.use("/dest", DestRoute);
-// app.use("/member", MemberRoute);
-// app.use("/blog", BlogRoute);
-// app.use("/enquiry", EnqRoute);
+app.use("/auth",UserRoute)
+app.use("/book",BookRoute );
+app.use("/dest", DestRoute);
+app.use("/member", MemberRoute);
+app.use("/blog", BlogRoute);
+app.use("/enquiry", EnqRoute);
 
 app.use((err, req, res, next) => {
     const status = err.status || 500;

@@ -1,5 +1,5 @@
-import Blog from "../Model/Blog.js"
-export const createBlog = async (req, res, next) => {
+const Blog = require("../Model/Blog.js");
+const createBlog = async (req, res, next) => {
     try {
     const {
       name,
@@ -41,7 +41,7 @@ export const createBlog = async (req, res, next) => {
         res.status(500).send('Error creating destination:', err.message);
       }
     };
-    export const getBlogByName = async (req, res) => {
+    const getBlogByName = async (req, res) => {
       try {
         const linkName = req.params.name;
         const blog = await Blog.findOne({  urllink: linkName }).populate('products');
@@ -54,7 +54,7 @@ export const createBlog = async (req, res, next) => {
       }
     };
 
-    export const getBlogssall = async (req,res,next)=>{
+     const getBlogssall = async (req,res,next)=>{
       try {
         const blogs = await Blog.find();
         // res.status(200).json(treks);
@@ -63,3 +63,8 @@ export const createBlog = async (req, res, next) => {
         res.status(500).json({ success: false, error: error.message });
       }
     }
+    module.exports = {
+        createBlog,
+        getBlogByName,
+        getBlogssall
+    };

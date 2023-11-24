@@ -1,9 +1,9 @@
-import User from "../Model/User.js";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import nodemailer from "nodemailer"
+const User = require("../Model/User.js");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 
-export const signup = async (req, res, next) => {
+const signup = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (user){
@@ -23,7 +23,7 @@ export const signup = async (req, res, next) => {
   }
 };
 
-export const signin = async (req, res, next) => {
+const signin = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) 
@@ -48,7 +48,7 @@ export const signin = async (req, res, next) => {
     next(err);
   }
 };
-export const googleAuth = async (req, res, next) => {
+const googleAuth = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
@@ -78,14 +78,13 @@ export const googleAuth = async (req, res, next) => {
   }
 };
 const transporter = nodemailer.createTransport({
-  service:"gmail",
-  auth:{
-      user:"mudassir@backpackersunited.in",
-      pass:"lqrpmmbxgbtujjni"
+  service: "gmail",
+  auth: {
+    user: "mudassir@backpackersunited.in",
+    pass: "lqrpmmbxgbtujjni"
   }
-}) 
-
-export const passwordLink = async (req, res, next) => {
+});
+const passwordLink = async (req, res, next) => {
   console.log(req.body)
 
   const {email} = req.body;
@@ -142,7 +141,7 @@ export const passwordLink = async (req, res, next) => {
 
 };
 
-export const forgotPassword = async (req, res, next) => {
+const forgotPassword = async (req, res, next) => {
   const {id,token} = req.params;
   const {password} = req.body;
   try {
@@ -172,7 +171,6 @@ export const forgotPassword = async (req, res, next) => {
   }
 }
 
-
+module.exports = { signup, signin, googleAuth, passwordLink, forgotPassword };
   
  
-  

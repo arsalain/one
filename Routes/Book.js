@@ -1,11 +1,10 @@
-import express from "express";
-import { initiatepayment, savepayment, verifypayment } from "../Controllers/book.js";
-
+const express = require('express');
+const { initiatepayment, savepayment, verifypayment } = require('../Controllers/book.js');
 
 const router = express.Router();
 
-router.post("/initiatePayment",initiatepayment)
-router.post("/verifyPayment",verifypayment)
-router.post("/savePayment",savepayment)
+router.post('/initiatePayment', initiatepayment);
+router.post('/verifyPayment', verifypayment);
+router.post('/savePayment', savepayment);
 
-export default router;
+module.exports = router;

@@ -1,9 +1,9 @@
-import Book from '../Model/Book.js';
-import crypto from 'crypto'
-import razorpay from '../Middleware/razorpay.js'
-import nodemailer from "nodemailer"
+const Book = require('../Model/Book.js');
+const crypto = require('crypto');
+const razorpay = require('../Middleware/razorpay.js');
+const nodemailer = require('nodemailer');
 
-export const initiatepayment = async (req,res,next)=>{
+const initiatepayment = async (req,res,next)=>{
   if (req.method !== 'POST') return res.status(405).end();
 
   const options = {
@@ -21,7 +21,7 @@ export const initiatepayment = async (req,res,next)=>{
   }
 }
 
-export const verifypayment = async (req,res,next)=>{
+const verifypayment = async (req,res,next)=>{
   const { razorpayOrderId, razorpayPaymentId, razorpaySignature } = req.body;
 
   const generatedSignature = crypto
@@ -38,7 +38,7 @@ export const verifypayment = async (req,res,next)=>{
 // pages/api/savePayment.js
 
 
-export const savepayment = async (req,res,next)=>{
+const savepayment = async (req,res,next)=>{
 
   try {
     const paymentCount = await Book.countDocuments();
@@ -266,3 +266,9 @@ export const savepayment = async (req,res,next)=>{
     res.status(500).json({ success: false, message: error.message });
   }
 }
+
+module.exports = {
+  initiatepayment,
+  verifypayment,
+  savepayment
+};

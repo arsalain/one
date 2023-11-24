@@ -1,9 +1,9 @@
-import express from "express";
-import { getEnquiry, postEnquiry } from "../Controllers/enquiry.js";
+const express = require('express');
+const { getEnquiry, postEnquiry } = require('../Controllers/enquiry.js');
 
 const router = express.Router();
 
-router.get("/",getEnquiry)
-router.post("/save",postEnquiry)
+router.get("/", getEnquiry);
+router.post("/save", postEnquiry);
 
-export default router;
+module.exports = router;

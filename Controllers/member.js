@@ -1,9 +1,9 @@
-import Member from '../Model/Member.js';
-import crypto from 'crypto'
-import razorpay from '../Middleware/razorpay.js'
-import nodemailer from "nodemailer"
+const Member = require('../Model/Member.js');
+const crypto = require('crypto');
+const razorpay = require('../Middleware/razorpay.js');
+const nodemailer = require('nodemailer');
 
-export const initiatememberpayment = async (req,res,next)=>{
+exports.initiatememberpayment = async (req,res,next)=>{
   if (req.method !== 'POST') return res.status(405).end();
   console.log(req.body.totalamount,"hey")
   const options = {
@@ -21,7 +21,7 @@ console.log(req.body.totalamount,"hey")
   }
 }
 
-export const verifymemberpayment = async (req,res,next)=>{
+exports.verifymemberpayment = async (req,res,next)=>{
   const { razorpayOrderId, razorpayPaymentId, razorpaySignature } = req.body;
 
   const generatedSignature = crypto
@@ -36,7 +36,7 @@ export const verifymemberpayment = async (req,res,next)=>{
   }
 }
 
-export const savemember = async (req, res, next) => {
+exports.savemember = async (req, res, next) => {
     try {
       const memberCount = await Member.countDocuments();
   
@@ -307,4 +307,5 @@ export const savemember = async (req, res, next) => {
     } catch (error) {
       res.status(500).json({ success: false, message: error.message });
     }
-  }
+
+}
