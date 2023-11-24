@@ -12,9 +12,9 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import { createRequire } from 'module';
 
-const require = createRequire(import.meta.url);
+// const require = createRequire(import.meta.url);
 
-delete require.cache[require.resolve('./Controllers/book.js')];
+// delete require.cache[require.resolve('./Controllers/book.js')];
 
 const app = express();
 dotenv.config();
@@ -57,3 +57,7 @@ app.use((err, req, res, next) => {
       connect();
       console.log(`Connected to backend at port ${port}`)
   });
+
+  app.get('/', (req, res) => {
+    res.send('Hey this is my API running 🥳')
+  })
