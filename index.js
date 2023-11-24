@@ -47,7 +47,11 @@ app.use(cors())
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json());
 
-app.use("/uploads",express.static('uploads'))
+app.use("/uploads", (req, res, next) => {
+    console.log('Request for static file received:', req.path);
+    next();
+}, express.static('uploads'));
+
 app.use("/trek", TrekRoute);
 // app.use("/auth",UserRoute)
 // app.use("/book",BookRoute );
