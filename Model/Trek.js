@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
+
 const TrekSchema = new mongoose.Schema(
   {
     name: { type: String },
@@ -128,4 +129,5 @@ rlink: {
   { timestamps: true }
 );
 
-export default mongoose.model("Trek", TrekSchema);
+module.exports = mongoose.model("Trek", TrekSchema);
+// export default mongoose.model("Trek", TrekSchema);

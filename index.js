@@ -1,16 +1,17 @@
-import express from "express"
-import dotenv from "dotenv"
-import mongoose from "mongoose"
-import TrekRoute from "./Routes/Trek.js"
-import UserRoute from "./Routes/User.js"
-import BookRoute from "./Routes/Book.js"
-import DestRoute from "./Routes/Dest.js"
-import MemberRoute from "./Routes/Member.js"
-import BlogRoute from "./Routes/Blog.js"
-import EnqRoute from "./Routes/Enquiry.js"
-import bodyParser from "body-parser";
-import cors from "cors";
-import { createRequire } from 'module';
+const express = require("express");
+const dotenv = require("dotenv");
+const mongoose = require("mongoose");
+const TrekRoute = require("./Routes/Trek.js");
+// const UserRoute = require("./Routes/User.js");
+// const BookRoute = require("./Routes/Book.js");
+// const DestRoute = require("./Routes/Dest.js");
+// const MemberRoute = require("./Routes/Member.js");
+// const BlogRoute = require("./Routes/Blog.js");
+// const EnqRoute = require("./Routes/Enquiry.js");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+
+// import { createRequire } from 'module';
 
 // const require = createRequire(import.meta.url);
 
@@ -19,14 +20,27 @@ import { createRequire } from 'module';
 const app = express();
 dotenv.config();
 
+// const connect = async () => {
+//     try {
+//         await mongoose.connect(process.env.MONGODB_URI);
+//         console.log("Connected to Mongodb")
+//     }catch(error){
+//         throw error;
+//     }
+// };
+
 const connect = async () => {
+    const dbURI = "mongodb+srv://ateeq:A53Eo-1996@cluster0.pdwyorg.mongodb.net/Backpack?retryWrites=true&w=majority";
     try {
-        await mongoose.connect(process.env.MONGO);
-        console.log("Connected to Mongodb")
-    }catch(error){
+        await mongoose.connect(dbURI);
+        console.log("Connected to MongoDB");
+    } catch (error) {
+        console.error("Connection to MongoDB failed", error);
         throw error;
     }
 };
+
+connect();
 
 app.use(cors())
 // app.use(cookieParser())
@@ -35,12 +49,12 @@ app.use(bodyParser.json());
 
 app.use("/uploads",express.static('uploads'))
 app.use("/trek", TrekRoute);
-app.use("/auth",UserRoute)
-app.use("/book",BookRoute );
-app.use("/dest", DestRoute);
-app.use("/member", MemberRoute);
-app.use("/blog", BlogRoute);
-app.use("/enquiry", EnqRoute);
+// app.use("/auth",UserRoute)
+// app.use("/book",BookRoute );
+// app.use("/dest", DestRoute);
+// app.use("/member", MemberRoute);
+// app.use("/blog", BlogRoute);
+// app.use("/enquiry", EnqRoute);
 
 app.use((err, req, res, next) => {
     const status = err.status || 500;

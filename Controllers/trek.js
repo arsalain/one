@@ -1,14 +1,12 @@
-import Trek from "../Model/Trek.js";
+const Trek = require("../Model/Trek.js");
 
-
-
-  export const getTreksall = async (req,res,next)=>{
+  const getTreksall = async (req,res,next)=>{
     try {
       const treks = await Trek.find();
       // res.status(200).json(treks);
       res.status(200).json({ success: true, data: treks });
     } catch (err) {
-      res.status(500).json({ success: false, error: error.message });
+      res.status(500).json({ success: false, error: err.message });
     }
   }
 
@@ -16,7 +14,7 @@ import Trek from "../Model/Trek.js";
   const trekTypes = ['northindiatrek', 'karnatakatrek', 'keralatrek', 'tmtrek'];
   
   // Middleware function to get tours by name
- export const getTourByName = async (req, res) => {
+  const getTourByName = async (req, res) => {
     try {
       const linkName = req.params.name;
       const tour = await Trek.findOne({ urllink: linkName, maintype: { $in: tourTypes } }).populate("relatedtreks")
@@ -30,7 +28,7 @@ import Trek from "../Model/Trek.js";
   };
   
   // Middleware function to get treks by name
-  export const getTrekByName = async (req, res) => {
+   const getTrekByName = async (req, res) => {
     try {
       const linkName = req.params.name;
       const trek = await Trek.findOne({  urllink: linkName, maintype: { $in: trekTypes } }).populate("relatedtreks")
@@ -43,7 +41,7 @@ import Trek from "../Model/Trek.js";
     }
   };
   
-export const getTrekById = async (req, res) => {
+ const getTrekById = async (req, res) => {
   try {
     const id = req.params.id;
     // const Trekdata = await Trek.findById(id).populate('batches'); 
@@ -58,7 +56,7 @@ export const getTrekById = async (req, res) => {
   }
 }
 
-export const getTreksMain = async (req, res, next) => {
+ const getTreksMain = async (req, res, next) => {
   try {
     let treks = await Trek.find(
       {},
@@ -77,7 +75,7 @@ export const getTreksMain = async (req, res, next) => {
   }
 };
 
-export const createTrek = async (req, res, next) => {
+ const createTrek = async (req, res, next) => {
   try {
     // Extract the trek information from the request body
     const {
@@ -190,7 +188,7 @@ console.log("Parsed days data", TrekData.days);
 
 // Add other utility functions as needed...
 
-export const updateTrekById = async (req, res, next) => {
+ const updateTrekById = async (req, res, next) => {
 
       const { id } = req.params;
       const TrekData = {};
@@ -353,7 +351,7 @@ try {
       return res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
-export const getTreksGroupTour = async (req, res, next) => {
+const getTreksGroupTour = async (req, res, next) => {
   try {
     const treks = await Trek.find({ maintype: "grouptour" });
     if (treks.length === 0) {
@@ -366,7 +364,7 @@ export const getTreksGroupTour = async (req, res, next) => {
   }
 };
 // Long Tour
-export const getTreksLongTour = async (req, res, next) => {
+ const getTreksLongTour = async (req, res, next) => {
   try {
     const trekslong = await Trek.find({ maintype: "longtour" });
     if (trekslong.length === 0) {
@@ -380,7 +378,7 @@ export const getTreksLongTour = async (req, res, next) => {
 };
 
 // International
-export const getTreksInternational = async (req, res, next) => {
+ const getTreksInternational = async (req, res, next) => {
   try {
     const treks = await Trek.find({ maintype: 'international' });
     if (treks.length === 0) {
@@ -394,7 +392,7 @@ export const getTreksInternational = async (req, res, next) => {
 };
 
 // North India Tour
-export const getTreksNorthIndiaTour = async (req, res, next) => {
+ const getTreksNorthIndiaTour = async (req, res, next) => {
   try {
     const treks = await Trek.find({ maintype: 'northindiatour' });
     if (treks.length === 0) {
@@ -408,7 +406,7 @@ export const getTreksNorthIndiaTour = async (req, res, next) => {
 };
 
 // North India Trek
-export const getTreksNorthIndiaTrek = async (req, res, next) => {
+ const getTreksNorthIndiaTrek = async (req, res, next) => {
   try {
     const treks = await Trek.find({ maintype: 'northindiatrek' });
     if (treks.length === 0) {
@@ -422,7 +420,7 @@ export const getTreksNorthIndiaTrek = async (req, res, next) => {
 };
 
 // Karnataka Trek
-export const getTreksKarnatakaTrek = async (req, res, next) => {
+ const getTreksKarnatakaTrek = async (req, res, next) => {
   try {
     const treks = await Trek.find({ maintype: 'karnatakatrek' });
     if (treks.length === 0) {
@@ -436,7 +434,7 @@ export const getTreksKarnatakaTrek = async (req, res, next) => {
 };
 
 // Kerala Trek
-export const getTreksKeralaTrek = async (req, res, next) => {
+ const getTreksKeralaTrek = async (req, res, next) => {
   try {
     const treks = await Trek.find({ maintype: 'keralatrek' });
     if (treks.length === 0) {
@@ -450,7 +448,7 @@ export const getTreksKeralaTrek = async (req, res, next) => {
 };
 
 // Tamil Nadu Trek
-export const getTreksTNTrek = async (req, res, next) => {
+const getTreksTNTrek = async (req, res, next) => {
   try {
     const treks = await Trek.find({ maintype: 'tntrek' });
     if (treks.length === 0) {
@@ -461,4 +459,21 @@ export const getTreksTNTrek = async (req, res, next) => {
     console.error(error);
     res.status(500).json({ message: 'Server Error' });
   }
+};
+module.exports = {
+    getTreksall,
+    getTourByName,
+    getTrekByName,
+    getTrekById,
+    getTreksMain,
+    createTrek,
+    updateTrekById,
+    getTreksGroupTour,
+    getTreksLongTour,
+    getTreksInternational,
+    getTreksNorthIndiaTour,
+    getTreksNorthIndiaTrek,
+    getTreksKarnatakaTrek,
+    getTreksKeralaTrek,
+    getTreksTNTrek
 };
