@@ -205,7 +205,7 @@ exports.savemember = async (req, res, next) => {
       const mailOptions = {
         from: 'info@backpackersunited.in',
         to: req.body.email, // User's email address
-        subject: 'star2: Your Backpackers United Travel Pass is Confirmed! :tada: Its Time to Travel! :earth_africa::airplane:',
+        subject: 'Your Backpackers United Travel Pass is Confirmed! Its Time to Travel!',
         html: userConfirmationEmail,
       };
     

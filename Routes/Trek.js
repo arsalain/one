@@ -5,6 +5,8 @@ const uploadMiddleware = require("../Middleware/upload.js");
 const router = express.Router();
 
 router.get("/main", trekController.getTreksMain);
+router.get("/trek", trekController.getTrek);
+router.get("/tour", trekController.getTour);
 router.get('/grouptour', trekController.getTreksGroupTour);
 router.get('/longtour', trekController.getTreksLongTour);
 router.get('/international', trekController.getTreksInternational);

@@ -40,6 +40,30 @@ const Trek = require("../Model/Trek.js");
       res.status(500).json({ error: "Could not retrieve trek" });
     }
   };
+  const getTour = async (req, res) => {
+    try {
+        const tour = await Trek.find({ maintype: { $in: tourTypes } }).select('name urllink');
+      if (!tour) {
+        return res.status(404).json({ error: "Tour not found" });
+      }
+      res.status(200).json(tour);
+    } catch (error) {
+      res.status(500).json({ error: "Could not retrieve tour" });
+    }
+  };
+  
+  // Middleware function to get treks by name
+   const getTrek = async (req, res) => {
+    try {
+        const trek = await Trek.find({ maintype: { $in: trekTypes } }).select('name urllink');
+      if (!trek) {
+        return res.status(404).json({ error: "Trek not found" });
+      }
+      res.status(200).json(trek);
+    } catch (error) {
+      res.status(500).json({ error: "Could not retrieve trek" });
+    }
+  };
   
  const getTrekById = async (req, res) => {
   try {
@@ -461,6 +485,8 @@ const getTreksTNTrek = async (req, res, next) => {
   }
 };
 module.exports = {
+    getTrek,
+    getTour,
     getTreksall,
     getTourByName,
     getTrekByName,
