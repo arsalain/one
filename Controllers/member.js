@@ -40,9 +40,7 @@ exports.savemember = async (req, res, next) => {
     try {
       const memberCount = await Member.countDocuments();
   
-      // Generate a unique member ID
-      const memberId = `BPUmember${Date.now() % 10000}${memberCount + 1}`;
-  
+      const memberId = `M0100${memberCount + 1}`;
       const newMember = new Member({
         memberId,
         title: req.body.title,
